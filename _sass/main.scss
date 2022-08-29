@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=DM+Sans");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.css");
 
 .current {
     color: #ddd;
@@ -20,28 +21,41 @@ html {
     margin: auto;
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #282828;
-        color: #ddd;
-    }
+body {
+    background-color: #282828;
+    color: #ddd;
+}
 
-    a {
-        color: #ddd;
-        text-decoration: none;
-    }
+pre, code {
+    font-family: "hack";
+}
 
-    a:link {
-        color: #ddd;
-    }
+pre {
+    font-size: 11pt;
+    padding: 0.5rem 0.5rem;
+    border: 1px dashed var(--bg4);
+}
 
-    a:hover {
-        background-color: var(--red-dim);
-    }
+code {
+    /* not working at the moment */
+    background-color: var(--bg-hard);
+}
 
-    a:visited {
-        text-decoration: none;
-    }
+a {
+    color: #ddd;
+    text-decoration: none;
+}
+
+a:link {
+    color: #ddd;
+}
+
+a:hover {
+    background-color: var(--red-dim);
+}
+
+a:visited {
+    text-decoration: none;
 }
 
 /* Gruvbox Color Scheme */
