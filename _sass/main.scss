@@ -38,7 +38,9 @@ pre {
 
 code {
     /* not working at the moment */
-    background-color: var(--bg-hard);
+    background-color: var(--bg-h);
+    font-size: 10pt;
+    color: var(--fg);
 }
 
 a {
