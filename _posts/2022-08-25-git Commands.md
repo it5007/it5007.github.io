@@ -2,41 +2,84 @@
 layout: post
 author: aaron
 ---
-# Git Commands
+# Common Git Scenarios
 
-For a comprehensive intro guide to Git commands, please refer to [this guide](https://www.notion.so/zarkom/Introduction-to-Git-ac396a0697704709a12b6a0e545db049#3f395b09dee24f738fea3ee6f14ed220) (Introduction to Git). In the meantime, you can refer to some commonly used Git commands that you may encounter throughout your projects:
+For a comprehensive intro guide to Git commands, please refer to **[this guide (Introduction to Git)](https://www.notion.so/zarkom/Introduction-to-Git-ac396a0697704709a12b6a0e545db049#3f395b09dee24f738fea3ee6f14ed220)**. In the meantime, you can refer to some commonly used Git commands that you may encounter throughout your projects:
 
-#### Scenario: After making changes on a 'test-branch' and want to push to Github repo:
+## Scenario: After making changes on a 'test branch', you now want to push to your team's Github repo:
 
-- `git status`: to check the status of your git
-- `git add .`: ...
-- `git commit -m “commit message”`: ...
+- Before making any changes on your Git repository, you would want to check the state of the working directory and the 'staging area'. `git status` allows you to see what files are currently 'staged', 'unstaged', and 'untracked'.
+```
+git status
+``` 
 
-- `git checkout masterbranch`:...
-- `git fetch`: to see differences first...
-- `git pull`: ....
-- `git checkout test-branch`:...
-- `git merge masterbranch`: (from Test branch)
+```
+// On branch main
+// Your branch is up to date with 'origin/main'.
 
-- Resolve all conflicts locally first (in **VSCode** → **Source Control**) - sit with teammate to go over (include screenshot), if there are version conflicts.
+// Changes not staged for commit:
+//  (use "git add <file>..." to update what will be committed)
+//  (use "git restore <file>..." to discard changes in working directory)
+//	modified:   2022-08-25-git Commands.md
+
+// no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+- You see that there are some files that have been modified, but are not yet staged for the next commit. If so, you can add these updated files onto staging area by using `git add [directory or file name]`. Note that you can use `.` after `git add` if you want to simply add ALL files onto the staging area. This way, you do not need to specify the name of each file you want to add to the staging area. 
+```
+git add .
+```
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--M_fHUEqA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/128hsgntnsu9bww0y8sz.png"  width="500px" height="300px">
+
+
+- As you can see from the Git flowchart above, you would now want to **'commit'** your staged changes back to the repository. You will also need to add a brief, but detailed comment about the changes that were made after the `-m` flag. These messages will better help you and your collaborators figure out what changes you made... especially a few months down the road, so keep them concise, but informative!
+```
+git commit -m “Fixed log-in button.”
+```
+
+- Now it is time to merge back to the remote repository (eg. on Github). But before doing this, we will need to ensure our current repo is up-to-date with the remote repo. For eg. During the time you were making changes, your teammates could have updated the remote repo before you had the chance to merge your changes! 
+
+- Let's first navigate back to the **'main'** branch, which is our local representation of what the remote repo looked like at the time of the last **'pull'**. We navigate back with the `checkout` command, followed by the branch we want to go to, `main`.
+
+```
+git checkout main
+```
+```
+// Switched to branch 'main'
+// Your branch is up to date with 'origin/main'.
+```
+- Before we use the `pull` command, let's use `fetch` to see the differences between our local repo vs the remote repo, without overwriting any existing local code. (`fetch` downloads objects to the local machine without overwriting existing local code in the current branch.)
+
+```
+git fetch
+```
+
+- If the terminal does not return anything, it means we are good to go, and we can skip to the `git checkout test-branch` stage.
+
+- If `git fetch` indicates there were changes, we need to do a `git pull` first to ensure our local repo is up-to-date with the remote repo.
+
+```
+git pull
+```
+
+- Now that our main branch is up-to-date, we can now navigate back to our 'test branch', so we can merge the changes back to our main branch (in our local repo).
+
+```
+git checkout test-branch
+```
+
+- `git merge` here will merge our changes from our 'test branch' to our 'main' branch.
+```
+git merge main
+```
+
+- Assuming there are no 'version conflicts' from the main branch (Eg. if updates were made in the recently pulled version), we can finally use `git push` to 'push' our changes to the remote repo on Github.
         
-- When everything is resolved: `git push`
-- `git push --set-upstream origin test-branch-6`
-Then go on github repo, and **Create Pull Request → Merge Pull Request → Confirm Merge**... (if there are merge conflicts)
+```
+git push --set-upstream origin test-branch
+```
 
+Lastly, if there are any merge conflicts, we can go onto our Github repo, and click on **Create Pull Request → Merge Pull Request → Confirm Merge** to confirm the merge.
 
-#### Scenario: Installing MongoDB
-- `git remote add origin [https://github.com/vasansr/pro-mern-stack-2.git](https://github.com/vasansr/pro-mern-stack-2.git)`
-- `git fetch`
-- `git checkout origin/06.06-writing-to-mongodb`
-- `apt install gnupg`
-- `curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -`
-- `echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list`
-- `apt update`
-- `apt install mongodb-org
-- `mkdir -p /data/db`
-- `screen mongod` to run mongodb in the background
-- `ctr-a + d` : to detach
-- `git branch`
-- `git branch -r`: to view all branches
-- `git checkout origin/06.06-writing-to-mongodb`
+Congrats! You have completed your first Git push.
