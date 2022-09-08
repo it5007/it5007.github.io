@@ -12,7 +12,7 @@ title: Staff
         <h2>{{ author.name  }}</h2>
       <h3>{{ author.position }}</h3>
         <!-- <p>{{ author.content | markdownify }}</p> -->
-        <p><strong>Email: </strong>{{ author.email }}</p>
+            <p><strong>Email: </strong><a href="mailto:{{author.email}}""> {{ author.email }}</a></p>
     </li>
   {% endfor %}
 </ul>
